@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.pi4.locutil.MACAddress;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * MacFilterExclude excludes given MAC addresses from a set of MAC addresses. This class is supposed
@@ -50,6 +49,6 @@ public class MacFilterExclude implements MacFilter {
 	}
 
 	public Set<MACAddress> getMacs() {
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 }
