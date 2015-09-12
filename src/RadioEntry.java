@@ -1,28 +1,28 @@
 import java.util.ArrayList;
 
+import org.pi4.locutil.GeoPosition;
 import org.pi4.locutil.MACAddress;
 
 
 public class RadioEntry {
 
-	public MACAddress address;
-	public double value;
+	public GeoPosition pos;
+	public ArrayList<Pair> signals = new ArrayList<Pair>();
 	
-	public RadioEntry(MACAddress a, double v) {
-		address = a;
-		value = v;
+	public RadioEntry(double x, double y) {
+		pos = new GeoPosition(x,y);
 	}
 	
+	public RadioEntry(GeoPosition g) {
+		pos = g;
+	}
 	
-	
-	
-	/*
-	public ArrayList<Pair> list = new ArrayList<Pair>();
 	public void add(Pair p) {
-		list.add(p);
+		signals.add(p);
 	}
 	
-	public ArrayList<Pair> getList() {
-		return list;
-	}*/
+	public ArrayList<Pair> get() {
+		return signals;
+	}
+	
 }

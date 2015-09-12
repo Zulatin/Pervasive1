@@ -41,11 +41,19 @@ public class empirical_FP_NN {
 			
 			List<TraceEntry> offlineTrace = tg.getOffline();
 			GeoPosition currentPosition = null;
-			List<TraceEntry> temp = null;
+			
+			/*
+			 * Byg en liste af TraceEntry kaldet temp.
+			 * Tilføj løbende TraceEntrys til temp.
+			 * Når positionen skifter indeholder temp alle TraceEntry for den gamle position.
+			 * Udfør arbejde på temp, hvorefter vi nulstiller.
+			 */
+			ArrayList<RadioEntry> radiomap = new ArrayList<RadioEntry>();
+			ArrayList<TraceEntry> temp = new ArrayList<TraceEntry>();
 			for(TraceEntry entry: offlineTrace) {
 				if(!entry.getGeoPosition().equalsWithoutOrientation(currentPosition)) {
-					if(temp != null) {
-						ArrayList<tempHelper> help = new ArrayList<tempHelper>();
+					if(temp.size() != 0) { // Positionen skiftede og temp er ikke tom, begynd arbejdet!
+						ArrayList<TempHelper> help = new ArrayList<TempHelper>();
 						for(TraceEntry entry2 : temp) {
 							if(temp.size() == 0) {
 								SignalStrengthSamples sss = entry2.getSignalStrengthSamples();
@@ -57,59 +65,51 @@ public class empirical_FP_NN {
 										b = false;
 									}
 									else {
-										Vector<Double> vec = sss.getSignalStrengthValues(a);
-										Double total = 0.0;
-										for(Double d : vec) {
-											total += d;
-										}
-										Double result = total / vec.size();
-										tempHelper tH = new tempHelper(a,result);
+										
+										// Findes denne MACAdresse allerede?
+										TempHelper tH = new TempHelper(a);
 										if(help.contains(tH)) {
 											int i = help.indexOf(tH);
-											tempHelper t = help.get(i);
-											t.add(result);
+											tH = help.get(i);
 										}
 										else {
 											help.add(tH);
 										}
 										
+										// Tilføj værdier fra sss til tempHelperen
+										Vector<Double> vec = sss.getSignalStrengthValues(a);
+										for(Double d : vec) {
+											tH.add(d);
+										}									
 									}
 								}
 							}
 						}
-						
-						
-						
-						
+						// Vi har nu kørt temp igennem og tilføjet til help.
+						// Opbyg en radioentry for positionen.
+						RadioEntry radioEntry = new RadioEntry(currentPosition);
+						for(TempHelper h : help) {
+							Pair p = new Pair(h.getAddress(),h.getAverage());
+							radioEntry.add(p);
+						}
+						radiomap.add(radioEntry);
 						
 					}
-					
-					
-					temp = null;
+					temp = new ArrayList<TraceEntry>();
 					temp.add(entry);
 					currentPosition = entry.getGeoPosition();
 				}
 				else {
+					
+					// Positionen har ikke ændret sig, tilføj til temp
 					temp.add(entry);
-				}
-				
-				//Print out coordinates for the collection point and the number of signal strength samples
-				System.out.println(entry.getGeoPosition().toString() + " - " + entry.getSignalStrengthSamples().size());				
-			}
-			
-			
-			
-			
-			
-			
-			
+				}				
+			}	
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 }
 

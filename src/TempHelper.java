@@ -3,18 +3,26 @@ import java.util.ArrayList;
 import org.pi4.locutil.MACAddress;
 
 
-public class tempHelper implements Comparable<tempHelper> {
+public class TempHelper implements Comparable<TempHelper> {
 	
 	public MACAddress address;
 	ArrayList<Double> values = new ArrayList<Double>();
 	
-	public tempHelper(MACAddress a, double d) {
+	public TempHelper(MACAddress a, double d) {
 		address = a;
 		values.add(d);
 	}
 	
+	public TempHelper(MACAddress a) {
+		address = a;
+	}
+	
 	public void add(Double d) {
 		values.add(d);
+	}
+	
+	public MACAddress getAddress() {
+		return address;
 	}
 	
 	public Double getAverage() {
@@ -25,7 +33,7 @@ public class tempHelper implements Comparable<tempHelper> {
 		return total/values.size();
 	}
 
-	public int compareTo(tempHelper t) {
+	public int compareTo(TempHelper t) {
 		int i = this.address.compareTo(t.address);
 		return i;
 	}

@@ -1,11 +1,13 @@
+import org.pi4.locutil.MACAddress;
+
 
 public class Pair {
 	
-	public int nummer;
+	public MACAddress address;
 	public double value;
 	
-	public Pair(int n, double v) {
-		nummer = n;
+	public Pair(MACAddress a, double v) {
+		address = a;
 		value = v;
 	}
 
