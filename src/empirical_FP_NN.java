@@ -58,29 +58,24 @@ public class empirical_FP_NN {
 							if(temp.size() == 0) {
 								SignalStrengthSamples sss = entry2.getSignalStrengthSamples();
 								LinkedList<MACAddress> addresses = sss.getSortedAccessPoints();
-								boolean b = true;
-								while(b) {
-									MACAddress a = addresses.pop();
-									if(a == null) {
-										b = false;
+								for(int i=0; i<addresses.size(); i++) {
+									MACAddress a = addresses.get(i);
+
+									// Findes denne MACAdresse allerede?
+									TempHelper tH = new TempHelper(a);
+									if(help.contains(tH)) {
+										int j = help.indexOf(tH);
+										tH = help.get(j);
 									}
 									else {
-										
-										// Findes denne MACAdresse allerede?
-										TempHelper tH = new TempHelper(a);
-										if(help.contains(tH)) {
-											int i = help.indexOf(tH);
-											tH = help.get(i);
-										}
-										else {
-											help.add(tH);
-										}
-										
-										// Tilføj værdier fra sss til tempHelperen
-										Vector<Double> vec = sss.getSignalStrengthValues(a);
-										for(Double d : vec) {
-											tH.add(d);
-										}									
+										help.add(tH);
+									}
+									
+									// Tilføj værdier fra sss til tempHelperen
+									Vector<Double> vec = sss.getSignalStrengthValues(a);
+									for(Double d : vec) {
+										tH.add(d);	
+																		
 									}
 								}
 							}
