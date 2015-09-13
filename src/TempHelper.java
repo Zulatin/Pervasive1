@@ -37,4 +37,10 @@ public class TempHelper implements Comparable<TempHelper> {
 		int i = this.address.compareTo(t.address);
 		return i;
 	}
+	
+	public boolean equals(Object o) {
+		TempHelper tH = (TempHelper) o;
+		return address.equals(tH.getAddress());		
+	}
+
 }
