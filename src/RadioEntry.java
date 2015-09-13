@@ -6,7 +6,7 @@ import org.pi4.locutil.MACAddress;
 
 public class RadioEntry implements Comparable<RadioEntry> {
 
-	public double match = 0;
+	public double match = 1000;
 	public GeoPosition pos;
 	public ArrayList<Pair> signals = new ArrayList<Pair>();
 	
