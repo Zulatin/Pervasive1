@@ -114,7 +114,7 @@ public class empirical_FP_NN {
 			
 			//System.out.println("Radiomap size = "+radiomap.size());
 			
-			File f = new File("results.txt");
+			File f = new File("empiricalResults.txt");
 			FileOutputStream out = new FileOutputStream(f);
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
 			
@@ -168,6 +168,7 @@ public class empirical_FP_NN {
 				//System.out.println(radiomap.get(radiomap.size()-1).match);
 				
 				RadioEntry rE = radiomap.get(0); // Best match
+				System.out.println("Match = " + rE.getMatch());
 				PositioningError error = new PositioningError(pos,rE.pos);
 				Double dError = error.getPositioningError();
 				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Error = "+ dError);
