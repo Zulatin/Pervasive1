@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import org.pi4.locutil.GeoPosition;
 import org.pi4.locutil.MACAddress;
+import org.pi4.locutil.PositioningError;
 import org.pi4.locutil.io.TraceGenerator;
 import org.pi4.locutil.trace.Parser;
 import org.pi4.locutil.trace.SignalStrengthSamples;
@@ -167,7 +168,9 @@ public class empirical_FP_NN {
 				//System.out.println(radiomap.get(radiomap.size()-1).match);
 				
 				RadioEntry rE = radiomap.get(0); // Best match
-				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Match = "+ rE.match);
+				PositioningError error = new PositioningError(pos,rE.pos);
+				Double dError = error.getPositioningError();
+				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Error = "+ dError);
 				writer.newLine();
 			}
 			writer.close();
