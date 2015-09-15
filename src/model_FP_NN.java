@@ -76,12 +76,12 @@ public class model_FP_NN {
              * Opbyg et array af size*size positioner hvor vi udregner signalstyrkerne
              * for hver AP på hver position. Læg disse udregninger ind i arrayet.
              */
-            int size = 30;
+            int size = 120;
             double n = 3.415;
-            double c = -33.77;
+            double Pd0 = -33.77;
             ArrayList<RadioEntry> modelMap = new ArrayList<RadioEntry>();
-            for(int i = 0; i<=size; i++) {
-            	for(int j = 0; j<=size; j++) {
+            for(int i = -size; i<=size; i++) {
+            	for(int j = -size; j<=size; j++) {
             		GeoPosition pos = new GeoPosition(i,j);
             		RadioEntry rE = new RadioEntry(pos);
             		for(MACAddressPosition map : MAClist) {
@@ -89,7 +89,7 @@ public class model_FP_NN {
             			GeoPosition macPos = map.getPosition();
             			double d = pos.distance(macPos);
             			
-            			double signal = 10 * n * Math.log10(d) + c;
+            			double signal = Pd0 - 10 * n * Math.log10(d);
             			
             			Pair p = new Pair(address,signal);
             			rE.add(p);
@@ -131,8 +131,13 @@ public class model_FP_NN {
 							//System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
 							int i = help.indexOf(p);
 							Pair p2 = help.get(i);
+							double val = p2.getValue();
+							if(val < -100) val = -100.0;
 							// (s1 - s2)^2
-							total += Math.pow(p2.getValue() - p.getValue(),2);
+							total += Math.pow(val - p.getValue(),2);
+						}
+						else { // uden for rækkevidde, giv værdi
+							total+= Math.pow(-100 - p.getValue(),2);
 						}
 					}
 					double match = Math.sqrt(total);

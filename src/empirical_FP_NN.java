@@ -48,63 +48,31 @@ public class empirical_FP_NN {
 			List<TraceEntry> offlineTrace = tg.getOffline();
 			GeoPosition currentPosition = null;
 			
-			/*
-			 * Byg en liste af TraceEntry kaldet temp.
-			 * Tilføj løbende TraceEntrys til temp.
-			 * Når positionen skifter indeholder temp alle TraceEntry for den gamle position.
-			 * Udfør arbejde på temp, hvorefter vi nulstiller.
-			 */
-			ArrayList<RadioEntry> radiomap = new ArrayList<RadioEntry>();
-			ArrayList<TraceEntry> temp = new ArrayList<TraceEntry>();
-			for(TraceEntry entry: offlineTrace) {
-				if(!entry.getGeoPosition().equalsWithoutOrientation(currentPosition)) {
-					if(temp.size() != 0) { // Positionen skiftede og temp er ikke tom, begynd arbejdet!
-						ArrayList<TempHelper> help = new ArrayList<TempHelper>();
-						for(TraceEntry entry2 : temp) {
-							SignalStrengthSamples sss = entry2.getSignalStrengthSamples();
-							LinkedList<MACAddress> addresses = sss.getSortedAccessPoints();
-							for(int i=0; i<addresses.size(); i++) {
-								MACAddress a = addresses.get(i);
 
-								// Findes denne MACAdresse allerede?
-								TempHelper tH = new TempHelper(a);
-								if(help.contains(tH)) {
-									int j = help.indexOf(tH);
-									tH = help.get(j);
-								}
-								else {
-									help.add(tH);
-								}
-								
-								// Tilføj værdier fra sss til tempHelperen
-								Vector<Double> vec = sss.getSignalStrengthValues(a);
-								for(Double d : vec) {
-									tH.add(d);	
-																	
-								}
-							}
-						
-						}
-						// Vi har nu kørt temp igennem og tilføjet til help.
-						// Opbyg en radioentry for positionen.
-						//System.out.println("help = "+help.size());
-						RadioEntry radioEntry = new RadioEntry(currentPosition);
-						for(TempHelper h : help) {
-							Pair p = new Pair(h.getAddress(),h.getAverage());
-							radioEntry.add(p);
-						}
-						radiomap.add(radioEntry);
-						
+			ArrayList<RadioEntry> radiomap = new ArrayList<RadioEntry>();
+			for(TraceEntry entry: offlineTrace) {
+				SignalStrengthSamples sss = entry.getSignalStrengthSamples();
+				LinkedList<MACAddress> addresses = sss.getSortedAccessPoints();
+				ArrayList<Pair> temp = new ArrayList<Pair>();
+				for(int i=0; i<addresses.size(); i++) {
+					MACAddress a = addresses.get(i);
+					double total = 0.0;
+					Vector<Double> vec = sss.getSignalStrengthValues(a);
+					for(Double d : vec) {
+						total += d;															
 					}
-					temp = new ArrayList<TraceEntry>();
-					temp.add(entry);
-					currentPosition = entry.getGeoPosition();
-				}
-				else {
+					double val = total / vec.size();
 					
-					// Positionen har ikke ændret sig, tilføj til temp
-					temp.add(entry);
-				}				
+					Pair p = new Pair(a,val);
+					
+					temp.add(p);
+				}
+				
+				RadioEntry radioEntry = new RadioEntry(entry.getGeoPosition());
+				for(Pair p : temp) {
+					radioEntry.add(p);
+				}
+				radiomap.add(radioEntry);			
 			}
 			
 			/*
@@ -147,8 +115,13 @@ public class empirical_FP_NN {
 							//System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
 							int i = help.indexOf(p);
 							Pair p2 = help.get(i);
+							double val = p2.getValue();
+							if(val < -100) val = -100.0; 
 							// (s1 - s2)^2
-							total += Math.pow(p2.getValue() - p.getValue(),2);
+							total += Math.pow(val - p.getValue(),2);
+						}
+						else { // uden for rækkevidde, giv værdi
+							total+= Math.pow(-100 - p.getValue(),2);
 						}
 					}
 					double match = Math.sqrt(total);
