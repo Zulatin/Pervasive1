@@ -78,7 +78,7 @@ public class model_FP_NN {
              */
             int size = 120;
             double n = 3.415;
-            double Pd0 = -33.77;
+            double Pd0 = -45;
             ArrayList<RadioEntry> modelMap = new ArrayList<RadioEntry>();
             for(int i = -size; i<=size; i++) {
             	for(int j = -size; j<=size; j++) {
@@ -102,7 +102,8 @@ public class model_FP_NN {
 			FileOutputStream out = new FileOutputStream(f);
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
 			
-			List<TraceEntry> onlineTrace = tg.getOnline();			
+			List<TraceEntry> onlineTrace = tg.getOnline();
+			double totalError = 0.0;
 			for(TraceEntry entry: onlineTrace) {
 				
 				GeoPosition pos = entry.getGeoPosition();
@@ -160,11 +161,15 @@ public class model_FP_NN {
 				System.out.println("Match = " + rE.getMatch());
 				PositioningError error = new PositioningError(pos,rE.pos);
 				Double dError = error.getPositioningError();
+				totalError += dError;
 				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Error = "+ dError);
 				writer.newLine();
 			}
+			double averageError = totalError / onlineTrace.size();
+			writer.write("Average Error = "+ averageError);
 			writer.close();
 			out.close();
+			System.out.println("Average Error = "+ averageError);
 			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
