@@ -33,6 +33,10 @@ public class RadioEntry implements Comparable<RadioEntry> {
 	public double getMatch() {
 		return match;
 	}
+	
+	public GeoPosition getPosition() {
+		return pos;
+	}
 
 	public int compareTo(RadioEntry r) {
 		if(this.match > r.match) return 1;
