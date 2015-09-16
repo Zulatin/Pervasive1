@@ -27,6 +27,10 @@ public class model_FP_KNN {
 		
 		int k = 3;
 		
+		if(args.length != 0) {
+			k = Integer.parseInt(args[0]);
+		}
+		
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
 		
 		//Construct parsers
