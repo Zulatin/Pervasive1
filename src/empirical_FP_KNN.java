@@ -24,7 +24,7 @@ public class empirical_FP_KNN {
 	public static void main(String[] args) {
 		
 		int k = 3;
-	
+		
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
 		
 		//Construct parsers
@@ -143,25 +143,12 @@ public class empirical_FP_KNN {
 				//System.out.println(radiomap.get(1).match);
 				//System.out.println(radiomap.get(radiomap.size()-1).match);
 				
-				double x = 0.0;
-				double y = 0.0;
-				for(int i = 0; i < k; i++) {
-					RadioEntry rE = radiomap.get(i);
-					GeoPosition position = rE.getPosition();
-					x += position.getX();
-					y += position.getY();
-				}
-				
-				x = x / k;
-				y = y / k;
-				
-				GeoPosition estimatedPosition = new GeoPosition(x,y);
-				
-				PositioningError error = new PositioningError(pos,estimatedPosition);
+				RadioEntry rE = radiomap.get(0); // Best match
+				System.out.println("Match = " + rE.getMatch());
+				PositioningError error = new PositioningError(pos,rE.pos);
 				Double dError = error.getPositioningError();
-				System.out.println("Error = "+dError);
 				totalError += dError;
-				writer.write("True Position = "+pos.toString()+" Estimated Position = "+estimatedPosition.toString()+ " Error = "+ dError);
+				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Error = "+ dError);
 				writer.newLine();
 			}
 			double averageError = totalError / onlineTrace.size();
