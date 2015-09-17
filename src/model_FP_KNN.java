@@ -214,7 +214,7 @@ public class model_FP_KNN {
 	
 	public static ArrayList<Double> test() {
 		
-		ArrayList<Double> results = ArrayList<>
+		ArrayList<Double> results = new ArrayList<Double>();
 		
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
 		
@@ -288,10 +288,6 @@ public class model_FP_KNN {
             		modelMap.add(rE);
             	}
             }
-            
-            File f = new File("modelResults.txt");
-			FileOutputStream out = new FileOutputStream(f);
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
 			
 			List<TraceEntry> onlineTrace = tg.getOnline();
 			double totalError = 0.0;
@@ -364,18 +360,12 @@ public class model_FP_KNN {
 				
 				PositioningError error = new PositioningError(pos,estimatedPosition);
 				Double dError = error.getPositioningError();
+				results.add(dError);
 				System.out.println("Error = "+dError);
 				totalError += dError;
-				writer.write("True Position = "+pos.toString()+" Estimated Position = "+estimatedPosition.toString()+ " Error = "+ dError);
-				writer.newLine();
 			}
 			double averageError = totalError / onlineTrace.size();
-			writer.write("Average Error = "+ averageError);
-			writer.close();
-			out.close();
-			System.out.println("Average Error = "+ averageError);
-			
-			return averageError;
+
 			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -383,6 +373,6 @@ public class model_FP_KNN {
 			e.printStackTrace();
 		}
 		
-		return 0.0;
+		return results;
 	}
 }

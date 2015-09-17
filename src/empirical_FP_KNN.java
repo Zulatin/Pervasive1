@@ -157,12 +157,24 @@ public class empirical_FP_KNN {
 				//System.out.println(radiomap.get(1).match);
 				//System.out.println(radiomap.get(radiomap.size()-1).match);
 				
-				RadioEntry rE = radiomap.get(0); // Best match
-				System.out.println("Match = " + rE.getMatch());
-				PositioningError error = new PositioningError(pos,rE.pos);
+				double x = 0.0;
+				double y = 0.0;
+				for(int i = 0; i < k; i++) {
+					RadioEntry rE = radiomap.get(i);
+					GeoPosition position = rE.getPosition();
+					x += position.getX();
+					y += position.getY();
+				}
+				
+				x = x / k;
+				y = y / k;
+				
+				GeoPosition estimatedPosition = new GeoPosition(x,y);
+				
+				PositioningError error = new PositioningError(pos,estimatedPosition);
 				Double dError = error.getPositioningError();
 				totalError += dError;
-				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Error = "+ dError);
+				writer.write("True Position = "+pos.toString()+" Estimated Position = "+estimatedPosition.toString()+ " Error = "+ dError);
 				writer.newLine();
 			}
 			double averageError = totalError / onlineTrace.size();
