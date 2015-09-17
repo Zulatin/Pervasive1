@@ -8,6 +8,15 @@ public class Main {
 	public static void main(String[] args) {
 		
 		try{
+			
+			System.out.println("Commands are:");
+    		System.out.println("empirical_FP_NN");
+    		System.out.println("empirical_FP_KNN <integer>");
+    		System.out.println("model_FP_NN");
+    		System.out.println("model_FP_KNN <integer>");
+    		System.out.println("scoreNN <filepath>");
+    		System.out.println("help");
+    		
 		    BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 		    String s;
 		    while(true) {
@@ -15,11 +24,6 @@ public class Main {
 		    	String[] a = s.split(" ");
 		    	String s2 = a[0];
 		    	
-		    	System.out.println("Commands are:");
-	    		System.out.println("empirical_FP_NN");
-	    		System.out.println("empirical_FP_KNN <integer>");
-	    		System.out.println("model_FP_NN");
-	    		System.out.println("model_FP_KNN <integer>");
 	    		
 		    	if(s2.toLowerCase().equals("empirical_fp_nn")) {
 		    		empirical_FP_NN e = new empirical_FP_NN();
@@ -39,6 +43,11 @@ public class Main {
 		    	if(s2.toLowerCase().equals("model_fp_knn")) {
 		    		model_FP_KNN e = new model_FP_KNN();
 		    		e.go(Integer.parseInt(a[1]));
+		    	}
+		    	
+		    	if(s2.toLowerCase().equals("scorenn")) {
+		    		scoreNN e = new scoreNN();
+		    		e.go((a[1]));
 		    	}
 		    	
 		    	if(s2.toLowerCase().equals("help")) {

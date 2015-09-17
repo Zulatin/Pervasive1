@@ -164,10 +164,11 @@ public class model_FP_NN {
 				//System.out.println(radiomap.get(radiomap.size()-1).match);
 				
 				RadioEntry rE = modelMap.get(0); // Best match
-				System.out.println("Match = " + rE.getMatch());
+				//System.out.println("Match = " + rE.getMatch());
 				PositioningError error = new PositioningError(pos,rE.pos);
 				Double dError = error.getPositioningError();
 				totalError += dError;
+				System.out.println("Error = "+dError);
 				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Error = "+ dError);
 				writer.newLine();
 			}

@@ -19,5 +19,10 @@ public class MACAddressPosition {
 	public GeoPosition getPosition() {
 		return pos;
 	}
+	
+	public boolean equals(Object o) {
+		MACAddressPosition map = (MACAddressPosition) o;
+		return address.equals(map.getAddress());		
+	}
 
 }
