@@ -66,7 +66,7 @@ public class model_FP_KNN {
 			
 			
 			/*
-			 * Indlæs filen med AP positions.
+			 * Indlï¿½s filen med AP positions.
 			 * Process den til objekter der parrer macaddresser og positioner.
 			 * Opbyg et array af disse objekter.
 			 */
@@ -75,7 +75,7 @@ public class model_FP_KNN {
             String s;
             boolean b = true;
             while ((s = in.readLine()) != null) {
-                if (b) { // Skip første linie i filen
+                if (b) { // Skip fï¿½rste linie i filen
                 	b = false;
                 	continue;
                 }
@@ -91,7 +91,7 @@ public class model_FP_KNN {
 			
             /*
              * Opbyg et array af size*size positioner hvor vi udregner signalstyrkerne
-             * for hver AP på hver position. Læg disse udregninger ind i arrayet.
+             * for hver AP pï¿½ hver position. Lï¿½g disse udregninger ind i arrayet.
              */
             int size = 120;
             double n = 3.415;
@@ -154,7 +154,7 @@ public class model_FP_KNN {
 							// (s1 - s2)^2
 							total += Math.pow(val - p.getValue(),2);
 						}
-						else { // uden for rækkevidde, giv værdi
+						else { // uden for rï¿½kkevidde, giv vï¿½rdi
 							total+= Math.pow(-100 - p.getValue(),2);
 						}
 					}
@@ -212,6 +212,152 @@ public class model_FP_KNN {
 		return 0.0;
 	}
 	
+	public static Double goClean(int value){
+		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
+		
+		//Construct parsers
+		File offlineFile = new File(offlinePath);
+		Parser offlineParser = new Parser(offlineFile);
+		
+		File onlineFile = new File(onlinePath);
+		Parser onlineParser = new Parser(onlineFile);
+		
+		//Construct trace generator
+		TraceGenerator tg;
+		try {
+			int offlineSize = 25;
+			int onlineSize = 5;
+			tg = new TraceGenerator(offlineParser, onlineParser,offlineSize,onlineSize);
+			
+			//Generate traces from parsed files
+			tg.generate();
+			
+			
+			/*
+			 * Indlï¿½s filen med AP positions.
+			 * Process den til objekter der parrer macaddresser og positioner.
+			 * Opbyg et array af disse objekter.
+			 */
+			ArrayList<MACAddressPosition> MAClist = new ArrayList<MACAddressPosition>();			
+			BufferedReader in = new BufferedReader(new FileReader(new File("data/MU.AP.positions")));
+            String s;
+            boolean b = true;
+            while ((s = in.readLine()) != null) {
+                if (b) { // Skip fï¿½rste linie i filen
+                	b = false;
+                	continue;
+                }
+                String[] data = s.split(" ");
+                MACAddress a = MACAddress.parse(data[0]);
+                double x = Double.parseDouble(data[1]);
+                double y = Double.parseDouble(data[2]);
+                
+                MACAddressPosition map = new MACAddressPosition(x, y, a);
+                MAClist.add(map);
+            }
+            in.close();
+			
+            /*
+             * Opbyg et array af size*size positioner hvor vi udregner signalstyrkerne
+             * for hver AP pï¿½ hver position. Lï¿½g disse udregninger ind i arrayet.
+             */
+            int size = 120;
+            double n = 3.415;
+            double Pd0 = -45;
+            ArrayList<RadioEntry> modelMap = new ArrayList<RadioEntry>();
+            for(int i = -size; i<=size; i++) {
+            	for(int j = -size; j<=size; j++) {
+            		GeoPosition pos = new GeoPosition(i,j);
+            		RadioEntry rE = new RadioEntry(pos);
+            		for(MACAddressPosition map : MAClist) {
+            			MACAddress address = map.getAddress();
+            			GeoPosition macPos = map.getPosition();
+            			double d = pos.distance(macPos);
+            			
+            			double signal = Pd0 - 10 * n * Math.log10(d);
+            			
+            			Pair p = new Pair(address,signal);
+            			rE.add(p);
+            		}
+            		modelMap.add(rE);
+            	}
+            }
+			
+			List<TraceEntry> onlineTrace = tg.getOnline();
+			double totalError = 0.0;
+			for(TraceEntry entry: onlineTrace) {
+				
+				GeoPosition pos = entry.getGeoPosition();
+				SignalStrengthSamples sss = entry.getSignalStrengthSamples();
+				ArrayList<Pair> help = new ArrayList<Pair>();
+				LinkedList<MACAddress> addresses = sss.getSortedAccessPoints();
+				// Opbyg liste af access points for denne position
+				for(int i=0; i<addresses.size(); i++) {
+					MACAddress a = addresses.get(i);
+					Double signal = sss.getAverageSignalStrength(a);
+					Pair p = new Pair(a,signal);
+					help.add(p);
+				}
+				
+				for(RadioEntry rEntry : modelMap) {
+					ArrayList<Pair> signals = rEntry.get();
+					Double total = 0.0;
+					for(Pair p : signals) {
+						if(help.contains(p)) {
+							int i = help.indexOf(p);
+							Pair p2 = help.get(i);
+							double val = p2.getValue();
+							if(val < -100) val = -100.0;
+							total += Math.pow(val - p.getValue(),2);
+						}
+						else { // uden for rï¿½kkevidde, giv vï¿½rdi
+							total+= Math.pow(-100 - p.getValue(),2);
+						}
+					}
+					double match = Math.sqrt(total);
+					rEntry.setMatch(match);
+				}
+				
+				Collections.sort(modelMap, new Comparator<RadioEntry>() {
+					public int compare(RadioEntry r1, RadioEntry r2)
+			        {
+			            return  r1.compareTo(r2);
+			        }
+				});
+				
+				double x = 0.0;
+				double y = 0.0;
+				for(int i = 0; i < k; i++) {
+					RadioEntry rE = modelMap.get(i);
+					GeoPosition position = rE.getPosition();
+					x += position.getX();
+					y += position.getY();
+				}
+				
+				x = x / k;
+				y = y / k;
+				
+				GeoPosition estimatedPosition = new GeoPosition(x,y);
+				
+				PositioningError error = new PositioningError(pos,estimatedPosition);
+				Double dError = error.getPositioningError();
+				totalError += dError;
+			}
+			double averageError = totalError / onlineTrace.size();
+			
+			return averageError;
+			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return 0.0;
+	}
+	
+	
+	
 	public static ArrayList<Double> test() {
 		
 		ArrayList<Double> results = new ArrayList<Double>();
@@ -240,7 +386,7 @@ public class model_FP_KNN {
 			
 			
 			/*
-			 * Indlæs filen med AP positions.
+			 * Indlï¿½s filen med AP positions.
 			 * Process den til objekter der parrer macaddresser og positioner.
 			 * Opbyg et array af disse objekter.
 			 */
@@ -249,7 +395,7 @@ public class model_FP_KNN {
             String s;
             boolean b = true;
             while ((s = in.readLine()) != null) {
-                if (b) { // Skip første linie i filen
+                if (b) { // Skip fï¿½rste linie i filen
                 	b = false;
                 	continue;
                 }
@@ -265,7 +411,7 @@ public class model_FP_KNN {
 			
             /*
              * Opbyg et array af size*size positioner hvor vi udregner signalstyrkerne
-             * for hver AP på hver position. Læg disse udregninger ind i arrayet.
+             * for hver AP pï¿½ hver position. Lï¿½g disse udregninger ind i arrayet.
              */
             int size = 120;
             double n = 3.415;
@@ -324,7 +470,7 @@ public class model_FP_KNN {
 							// (s1 - s2)^2
 							total += Math.pow(val - p.getValue(),2);
 						}
-						else { // uden for rækkevidde, giv værdi
+						else { // uden for rï¿½kkevidde, giv vï¿½rdi
 							total+= Math.pow(-100 - p.getValue(),2);
 						}
 					}
