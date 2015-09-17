@@ -172,7 +172,9 @@ public class empirical_FP_NN {
 		return 0.0;
 	}
 	
-	public static double go() {
+	public static ArrayList<Double> test() {
+		
+		ArrayList<Double> results = new ArrayList<Double>();
 		
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
 		
@@ -233,10 +235,6 @@ public class empirical_FP_NN {
 			
 			//System.out.println("Radiomap size = "+radiomap.size());
 			
-			File f = new File("empiricalResults.txt");
-			FileOutputStream out = new FileOutputStream(f);
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
-			
 			List<TraceEntry> onlineTrace = tg.getOnline();
 			double totalError = 0.0;
 			for(TraceEntry entry: onlineTrace) {
@@ -296,18 +294,12 @@ public class empirical_FP_NN {
 				//System.out.println("Match = " + rE.getMatch());
 				PositioningError error = new PositioningError(pos,rE.pos);
 				Double dError = error.getPositioningError();
+				results.add(dError);
 				totalError += dError;
 				System.out.println("Error = "+dError);
-				writer.write("True Position = "+pos.toString()+" Estimated Position = "+rE.pos.toString()+ " Error = "+ dError);
-				writer.newLine();
+				
 			}
 			double averageError = totalError / onlineTrace.size();
-			writer.write("Average Error = "+ averageError);
-			writer.close();
-			out.close();
-			System.out.println("Average Error = "+ averageError);
-			
-			return averageError;
 
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -315,7 +307,7 @@ public class empirical_FP_NN {
 			e.printStackTrace();
 		}
 		
-		return 0.0;
+		return results;
 	}
 	
 }
