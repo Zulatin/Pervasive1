@@ -139,6 +139,227 @@ public class Test {
 
 	public static void test2() {
 
+		try {
+			
+			File f = new File("plot2-enn.txt");
+			FileOutputStream out = new FileOutputStream(f);
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
+			empirical_FP_NN enn = new empirical_FP_NN();
+			ArrayList<Double> ennfinal = new ArrayList<Double>();
+			for(int i = 0; i<5; i++) {
+				ArrayList<Double> enntemp = enn.test();
+				ennfinal.addAll(enntemp);
+			}
+			Collections.sort(ennfinal);
+			
+			int size = ennfinal.size();
+			int i = size / 100 * 5;
+			Double d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 10;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 25;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 50;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 75;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			d = ennfinal.get(size-1);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			writer.close();
+			out.close();
+			
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			
+			File f = new File("plot2-eknn.txt");
+			FileOutputStream out = new FileOutputStream(f);
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
+			empirical_FP_KNN enn = new empirical_FP_KNN();
+			ArrayList<Double> ennfinal = new ArrayList<Double>();
+			for(int i = 0; i<5; i++) {
+				ArrayList<Double> enntemp = enn.test();
+				ennfinal.addAll(enntemp);
+			}
+			Collections.sort(ennfinal);
+			
+			int size = ennfinal.size();
+			int i = size / 100 * 5;
+			Double d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 10;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 25;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 50;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 75;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			d = ennfinal.get(size-1);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			writer.close();
+			out.close();
+			
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			
+			File f = new File("plot2-mnn.txt");
+			FileOutputStream out = new FileOutputStream(f);
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
+			model_FP_NN enn = new model_FP_NN();
+			ArrayList<Double> ennfinal = new ArrayList<Double>();
+			for(int i = 0; i<5; i++) {
+				ArrayList<Double> enntemp = enn.test();
+				ennfinal.addAll(enntemp);
+			}
+			Collections.sort(ennfinal);
+			
+			int size = ennfinal.size();
+			int i = size / 100 * 5;
+			Double d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 10;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 25;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 50;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 75;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			d = ennfinal.get(size-1);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			writer.close();
+			out.close();
+			
+		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			
+			File f = new File("plot2-mknn.txt");
+			FileOutputStream out = new FileOutputStream(f);
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
+			model_FP_KNN enn = new model_FP_KNN();
+			ArrayList<Double> ennfinal = new ArrayList<Double>();
+			for(int i = 0; i<5; i++) {
+				ArrayList<Double> enntemp = enn.test();
+				ennfinal.addAll(enntemp);
+			}
+			Collections.sort(ennfinal);
+			
+			int size = ennfinal.size();
+			int i = size / 100 * 5;
+			Double d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 10;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 25;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 50;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			i = size / 100 * 75;
+			d = ennfinal.get(i);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			d = ennfinal.get(size-1);
+			writer.write(d.toString());
+			writer.newLine();
+			
+			writer.close();
+			out.close();
+			
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	public static void test3() {
