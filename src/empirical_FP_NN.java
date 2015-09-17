@@ -23,6 +23,11 @@ public class empirical_FP_NN {
 	
 	public static void main(String[] args) {
 	
+		go();
+	}
+	
+	public static double go() {
+		
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
 		
 		//Construct parsers
@@ -154,12 +159,16 @@ public class empirical_FP_NN {
 			writer.close();
 			out.close();
 			System.out.println("Average Error = "+ averageError);
+			
+			return averageError;
 
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return 0.0;
 	}
 	
 }

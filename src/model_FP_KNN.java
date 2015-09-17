@@ -22,14 +22,25 @@ import org.pi4.locutil.trace.TraceEntry;
 
 
 public class model_FP_KNN {
+	
+	private static int k = 3;
 
 	public static void main(String[] args) {
-		
-		int k = 3;
-		
+
 		if(args.length != 0) {
 			k = Integer.parseInt(args[0]);
 		}
+		
+		go();
+		
+	}
+	
+	public static double go(int i) {
+		k = i;
+		return go();
+	}
+	
+	public static double go() {
 		
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
 		
@@ -190,10 +201,14 @@ public class model_FP_KNN {
 			out.close();
 			System.out.println("Average Error = "+ averageError);
 			
+			return averageError;
+			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return 0.0;
 	}
 }
