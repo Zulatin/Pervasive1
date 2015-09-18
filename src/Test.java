@@ -26,8 +26,8 @@ public class Test {
 
 	public static void main(String[] args) {
 
-//		test1();
-//		test2();
+		//		test1();
+		//		test2();
 		test3();
 	}
 
@@ -140,7 +140,7 @@ public class Test {
 	public static void test2() {
 
 		try {
-			
+
 			File f = new File("plot2-enn.txt");
 			FileOutputStream out = new FileOutputStream(f);
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
@@ -151,40 +151,40 @@ public class Test {
 				ennfinal.addAll(enntemp);
 			}
 			Collections.sort(ennfinal);
-			
+
 			int size = ennfinal.size();
 			int i = size / 100 * 5;
 			Double d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 10;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 25;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 50;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 75;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			d = ennfinal.get(size-1);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			writer.close();
 			out.close();
-			
+
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -193,9 +193,9 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
-			
+
 			File f = new File("plot2-eknn.txt");
 			FileOutputStream out = new FileOutputStream(f);
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
@@ -206,40 +206,40 @@ public class Test {
 				ennfinal.addAll(enntemp);
 			}
 			Collections.sort(ennfinal);
-			
+
 			int size = ennfinal.size();
 			int i = size / 100 * 5;
 			Double d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 10;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 25;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 50;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 75;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			d = ennfinal.get(size-1);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			writer.close();
 			out.close();
-			
+
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -250,7 +250,7 @@ public class Test {
 		}
 
 		try {
-			
+
 			File f = new File("plot2-mnn.txt");
 			FileOutputStream out = new FileOutputStream(f);
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
@@ -261,41 +261,41 @@ public class Test {
 				ennfinal.addAll(enntemp);
 			}
 			Collections.sort(ennfinal);
-			
+
 			int size = ennfinal.size();
 			int i = size / 100 * 5;
 			Double d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 10;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 25;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 50;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 75;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			d = ennfinal.get(size-1);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			writer.close();
 			out.close();
-			
-		
+
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -303,9 +303,9 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
-			
+
 			File f = new File("plot2-mknn.txt");
 			FileOutputStream out = new FileOutputStream(f);
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
@@ -316,40 +316,40 @@ public class Test {
 				ennfinal.addAll(enntemp);
 			}
 			Collections.sort(ennfinal);
-			
+
 			int size = ennfinal.size();
 			int i = size / 100 * 5;
 			Double d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 10;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 25;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 50;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			i = size / 100 * 75;
 			d = ennfinal.get(i);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			d = ennfinal.get(size-1);
 			writer.write(d.toString());
 			writer.newLine();
-			
+
 			writer.close();
 			out.close();
-			
+
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -358,43 +358,42 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
 
 	public static void test3() {
 		ArrayList<Double> empirical = new ArrayList<>();
 		ArrayList<Double> model = new ArrayList<>();
 
+		try {
+			BufferedWriter writerEmpirical = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("empiricalAccuracy.txt"))));
+			BufferedWriter writerModel = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("modelAccuracy.txt"))));
+			for (int i=1; i<=5; i++){
+				double eTotal = 0;
+				double mTotal = 0;
+				for (int j=0; j<100; j++){
+					empirical.add(empirical_FP_KNN.goClean(i));
+					model.add(model_FP_KNN.goClean(i));
+					eTotal += empirical.get(j);
+					mTotal += model.get(j);
+					writerEmpirical.write(i + ", " + eTotal / empirical.size() + "\n");
+					writerModel.write(i + ", " + mTotal / model.size() + "\n");
+				}
+			}
+			writerEmpirical.close();
+			writerModel.close();
 
-		for (int i=1; i<=5; i++){
-			double eTotal = 0;
-			double mTotal = 0;
-			for (int j=0; j<100; j++){
-				empirical.add(empirical_FP_KNN.goClean(i));
-				model.add(model_FP_KNN.goClean(i));
-				eTotal += empirical.get(j);
-				mTotal += model.get(j);
-				System.out.println("i:" + i + ", j:" + j);
-			}
-			
-			try {
-				BufferedWriter writerEmpirical = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("empiricalAccuracy" + i + ".txt"))));
-				BufferedWriter writerModel = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("modelAccuracy" + i + ".txt"))));
-				
-				writerEmpirical.write(i + ", " + eTotal / empirical.size() + "\n");
-				writerModel.write(i + ", " + mTotal / model.size() + "\n");
-				
-				writerEmpirical.close();
-				writerModel.close();
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
+
+
+
+
