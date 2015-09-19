@@ -1,0 +1,7 @@
+Errors listed as % worse than this value
+5% worst errors: 7.907275131168765
+10% worst errors: 5.724071977185472
+25% worst errors: 3.8160843806184377
+50% worst errors: 2.591138745802702
+75% worst errors: 1.8555053220079964
+95% worst errors: 1.1921828718783039

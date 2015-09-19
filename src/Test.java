@@ -363,8 +363,8 @@ public class Test {
 	}
 
 	public static void test3() {
-		ArrayList<Double> empirical = new ArrayList<>();
-		ArrayList<Double> model = new ArrayList<>();
+		ArrayList<Double> empirical = new ArrayList<Double>();
+		ArrayList<Double> model = new ArrayList<Double>();
 
 		try {
 			BufferedWriter writerEmpirical = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("empiricalAccuracy.txt"))));
