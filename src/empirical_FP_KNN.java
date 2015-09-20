@@ -133,12 +133,12 @@ public class empirical_FP_KNN {
 							int i = help.indexOf(p);
 							Pair p2 = help.get(i);
 							double val = p2.getValue();
-							if(val < -100) val = -100.0; 
+							if(val < -100.0) val = -100.0; 
 							// (s1 - s2)^2
 							total += Math.pow(val - p.getValue(),2);
 						}
 						else { // uden for r�kkevidde, giv v�rdi
-							total+= Math.pow(-100 - p.getValue(),2);
+							total+= Math.pow(-100.0 - p.getValue(),2);
 						}
 					}
 					double match = Math.sqrt(total);
@@ -182,6 +182,8 @@ public class empirical_FP_KNN {
 			writer.close();
 			out.close();
 			System.out.println("Average Error = "+ averageError);
+			System.out.println(radiomap.size());
+			System.out.println(k);
 			
 			return averageError;
 

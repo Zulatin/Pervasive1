@@ -27,8 +27,8 @@ public class Test {
 	public static void main(String[] args) {
 
 		//		test1();
-		//		test2();
-		test3();
+				test2();
+		//test3();
 	}
 
 	public static void test1() {
@@ -153,34 +153,13 @@ public class Test {
 			Collections.sort(ennfinal);
 
 			int size = ennfinal.size();
-			int i = size / 100 * 5;
-			Double d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 10;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 25;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 50;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 75;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			d = ennfinal.get(size-1);
-			writer.write(d.toString());
-			writer.newLine();
+			int i = 0;
+			for(int j = 1; j <= 100; j++) {
+				i = size / 100 * j - 1;
+				Double d = ennfinal.get(i);
+				writer.write(d.toString());
+				writer.newLine();
+			}
 
 			writer.close();
 			out.close();
@@ -208,34 +187,13 @@ public class Test {
 			Collections.sort(ennfinal);
 
 			int size = ennfinal.size();
-			int i = size / 100 * 5;
-			Double d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 10;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 25;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 50;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 75;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			d = ennfinal.get(size-1);
-			writer.write(d.toString());
-			writer.newLine();
+			int i = 0;
+			for(int j = 1; j <= 100; j++) {
+				i = size / 100 * j - 1;
+				Double d = ennfinal.get(i);
+				writer.write(d.toString());
+				writer.newLine();
+			}
 
 			writer.close();
 			out.close();
@@ -263,34 +221,13 @@ public class Test {
 			Collections.sort(ennfinal);
 
 			int size = ennfinal.size();
-			int i = size / 100 * 5;
-			Double d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 10;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 25;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 50;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 75;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			d = ennfinal.get(size-1);
-			writer.write(d.toString());
-			writer.newLine();
+			int i = 0;
+			for(int j = 1; j <= 100; j++) {
+				i = size / 100 * j - 1;
+				Double d = ennfinal.get(i);
+				writer.write(d.toString());
+				writer.newLine();
+			}
 
 			writer.close();
 			out.close();
@@ -318,34 +255,13 @@ public class Test {
 			Collections.sort(ennfinal);
 
 			int size = ennfinal.size();
-			int i = size / 100 * 5;
-			Double d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 10;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 25;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 50;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			i = size / 100 * 75;
-			d = ennfinal.get(i);
-			writer.write(d.toString());
-			writer.newLine();
-
-			d = ennfinal.get(size-1);
-			writer.write(d.toString());
-			writer.newLine();
+			int i = 0;
+			for(int j = 1; j <= 100; j++) {
+				i = size / 100 * j - 1;
+				Double d = ennfinal.get(i);
+				writer.write(d.toString());
+				writer.newLine();
+			}
 
 			writer.close();
 			out.close();

@@ -26,28 +26,23 @@ public class Main {
 		    	
 	    		
 		    	if(s2.toLowerCase().equals("empirical_fp_nn")) {
-		    		empirical_FP_NN e = new empirical_FP_NN();
-		    		e.go();
+		    		empirical_FP_NN.go();
 		    	}
 		    	
 		    	if(s2.toLowerCase().equals("empirical_fp_knn")) {
-		    		empirical_FP_KNN e = new empirical_FP_KNN();
-		    		e.go(Integer.parseInt(a[1]));
+		    		empirical_FP_KNN.go(Integer.parseInt(a[1]));
 		    	}
 		    	
 		    	if(s2.toLowerCase().equals("model_fp_nn")) {
-		    		model_FP_NN e = new model_FP_NN();
-		    		e.go();
+		    		model_FP_NN.go();
 		    	}
 		    	
 		    	if(s2.toLowerCase().equals("model_fp_knn")) {
-		    		model_FP_KNN e = new model_FP_KNN();
-		    		e.go(Integer.parseInt(a[1]));
+		    		model_FP_KNN.go(Integer.parseInt(a[1]));
 		    	}
 		    	
 		    	if(s2.toLowerCase().equals("scorenn")) {
-		    		scoreNN e = new scoreNN();
-		    		e.go((a[1]));
+		    		scoreNN.go((a[1]));
 		    	}
 		    	
 		    	if(s2.toLowerCase().equals("help")) {
